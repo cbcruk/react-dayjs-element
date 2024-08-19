@@ -1,3 +1,3 @@
-import { Format } from './Format'
+import { DayjsFormat } from './Format'
 
-export { Format }
+export { DayjsFormat as Format }

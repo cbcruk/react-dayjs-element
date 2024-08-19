@@ -1,11 +1,12 @@
-import dayjs, { ConfigType, Dayjs } from 'dayjs'
+import dayjs, { ConfigType } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { Parameter } from './types'
 
 dayjs.extend(relativeTime)
 
 type Props = {
   date?: ConfigType
-  withoutSuffix?: Parameters<Dayjs['fromNow']>[0]
+  withoutSuffix?: Parameter<'fromNow'>
 }
 
 export function FromNow({ date, withoutSuffix }: Props) {
