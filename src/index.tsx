@@ -1,3 +1,2 @@
-import { DayjsFormat } from './Format'
-
-export { DayjsFormat as Format }
+export { Format } from './Format'
+export { FromNow } from './FromNow'

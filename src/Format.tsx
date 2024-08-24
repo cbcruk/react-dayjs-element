@@ -1,11 +1,11 @@
 import dayjs, { ConfigType } from 'dayjs'
-import { Parameter } from './types'
+import { OptionalProps, Parameter } from './types'
 
 type Props = {
-  date?: ConfigType
-  template?: Parameter<'format'>
+  date: ConfigType
+  template: Parameter<'format'>
 }
 
-export function Format({ date, template }: Props) {
+export function Format({ date, template }: OptionalProps<Props>) {
   return <>{dayjs(date).format(template)}</>
 }
