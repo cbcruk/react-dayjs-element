@@ -1,7 +1,7 @@
-import { Dayjs } from 'dayjs'
+import { ConfigType, Dayjs } from 'dayjs'
 
-export type Parameter<T extends keyof Dayjs> = Parameters<Dayjs[T]>[0]
-
-export type OptionalProps<T> = {
-  [Key in keyof T]?: T[Key]
+export type DateConfigType = {
+  date: ConfigType
 }
+
+export type Parameter<T extends Dayjs[keyof Dayjs]> = Parameters<T>[0]
