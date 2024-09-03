@@ -12,5 +12,13 @@ describe('FromNow', () => {
     utils.rerender(<FromNow date="2024-05-21" withoutSuffix />)
 
     expect(utils.container).not.toHaveTextContent('ago')
+
+    utils.rerender(
+      <FromNow date="2024-05-21" withoutSuffix>
+        {({ value }) => `${value}`}
+      </FromNow>
+    )
+
+    expect(utils.container).not.toHaveTextContent('ago')
   })
 })

@@ -1,17 +1,17 @@
 import dayjs, { Dayjs } from 'dayjs'
-import { DateConfigType, FunctionComponentProps } from './types'
+import { DateConfigType, FunctionComponentProps, Value } from './types'
 
-type Props = DateConfigType &
-  FunctionComponentProps<{
-    isValid: ReturnType<Dayjs['isValid']>
-  }>
+type IsValid = Dayjs['isValid']
+type IsValidValue = Value<ReturnType<IsValid>>
+
+type Props = DateConfigType & FunctionComponentProps<IsValidValue>
 
 export function IsValid({ date, children }: Partial<Props>) {
-  const isValid = dayjs(date).isValid()
+  const value = dayjs(date).isValid()
 
   if (typeof children === 'function') {
-    return <>{children({ isValid })}</>
+    return <>{children({ value })}</>
   }
 
-  return <>{JSON.stringify(isValid)}</>
+  return <>{JSON.stringify(value)}</>
 }

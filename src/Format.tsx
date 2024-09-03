@@ -1,14 +1,25 @@
 import dayjs, { Dayjs } from 'dayjs'
-import { DateConfigType, Parameter } from './types'
+import {
+  DateConfigType,
+  FunctionComponentProps,
+  Parameter,
+  Value,
+} from './types'
 
 type Format = Dayjs['format']
-
-type Template = Parameter<Format>
-
-type Props = DateConfigType & {
-  template: Template
+type FormatValue = Value<ReturnType<Format>>
+type FormatParams = {
+  template: Parameter<Format>
 }
 
-export function Format({ date, template }: Partial<Props>) {
-  return <>{dayjs(date).format(template)}</>
+type Props = DateConfigType & FormatParams & FunctionComponentProps<FormatValue>
+
+export function Format({ date, template, children }: Partial<Props>) {
+  const value = dayjs(date).format(template)
+
+  if (typeof children === 'function') {
+    return <>{children({ value })}</>
+  }
+
+  return <>{value}</>
 }
