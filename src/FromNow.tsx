@@ -4,13 +4,13 @@ import {
   DateConfigType,
   FunctionComponentProps,
   Parameter,
-  Value,
+  ToValue,
 } from './types'
 
 dayjs.extend(relativeTime)
 
 type FromNow = Dayjs['fromNow']
-type FromNowValue = Value<ReturnType<FromNow>>
+type FromNowValue = ToValue<ReturnType<FromNow>>
 type FromNowParams = {
   withoutSuffix: Parameter<FromNow>
 }

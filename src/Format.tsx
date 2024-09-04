@@ -3,11 +3,11 @@ import {
   DateConfigType,
   FunctionComponentProps,
   Parameter,
-  Value,
+  ToValue,
 } from './types'
 
 type Format = Dayjs['format']
-type FormatValue = Value<ReturnType<Format>>
+type FormatValue = ToValue<ReturnType<Format>>
 type FormatParams = {
   template: Parameter<Format>
 }

@@ -1,8 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs'
-import { FunctionComponentProps, DateConfigType, Value } from './types'
+import { FunctionComponentProps, DateConfigType, ToValue } from './types'
 
 type Day = ReturnType<typeof getDay>
-type DayValue = Value<Day>
+type DayValue = ToValue<Day>
 
 type Props = DateConfigType & FunctionComponentProps<DayValue>
 

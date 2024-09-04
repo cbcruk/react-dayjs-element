@@ -11,6 +11,6 @@ export type FunctionComponentProps<T> = {
   children: FC<T>
 }
 
-export type Value<T> = {
+export type ToValue<T> = {
   value: T
 }
