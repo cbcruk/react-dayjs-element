@@ -14,3 +14,7 @@ export type FunctionComponentProps<T> = {
 export type ToValue<T> = {
   value: T
 }
+
+export type ReturnTo<T, R> = T extends () => R ? R : never
+
+export type ReturnNumber<T> = ReturnTo<T, number>
