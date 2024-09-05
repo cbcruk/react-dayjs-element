@@ -1,12 +1,12 @@
-import dayjs, { Dayjs } from 'dayjs'
+import { Dayjs } from 'dayjs'
 import {
   FunctionComponentProps,
   DateConfigType,
   ToValue,
   ReturnNumber,
 } from './types'
-import { useState } from 'react'
-import { isFunctionComponent } from './utils'
+import { Returns } from './Returns'
+import { useDayjs } from './useDayjs'
 
 type ReturnTypeDate = ReturnNumber<Dayjs['date']>
 
@@ -31,17 +31,11 @@ type Props = DateConfigType & FunctionComponentProps<DateValue>
  * @link https://day.js.org/docs/en/get-set/date
  */
 export function DateOfMonth({ date, children }: Partial<Props>) {
-  const [d] = useState(() => dayjs(date))
+  const { d, isValidDate } = useDayjs({ date })
 
-  if (!d.isValid()) {
+  if (!isValidDate) {
     return null
   }
 
-  const value = d.date()
-
-  if (isFunctionComponent(children)) {
-    return <>{children({ value })}</>
-  }
-
-  return <>{value}</>
+  return <Returns value={d.date()}>{children}</Returns>
 }
