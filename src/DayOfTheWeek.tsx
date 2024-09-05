@@ -6,6 +6,8 @@ import {
   ReturnTo,
 } from './types'
 import { useState } from 'react'
+import { isValidDate } from './utils'
+import { Returns } from './Returns'
 
 type ReturnTypeDay = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
@@ -18,15 +20,9 @@ type Props = DateConfigType & FunctionComponentProps<DayValue>
 export function DayOfTheWeek({ date, children }: Partial<Props>) {
   const [d] = useState(() => dayjs(date))
 
-  if (!d.isValid()) {
+  if (!isValidDate(d)) {
     return null
   }
 
-  const value = d.day()
-
-  if (typeof children === 'function') {
-    return <>{children({ value })}</>
-  }
-
-  return <>{value}</>
+  return <Returns value={d.day()}>{children}</Returns>
 }
