@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { DayOfTheWeek } from './DayOfTheWeek'
+import { DayOfWeek } from './DayOfWeek'
 import dayjs from 'dayjs'
 
-describe('<DayOfTheWeek />', () => {
+describe('<DayOfWeek />', () => {
   it('날짜가 제공되지 않은 경우 현재 요일을 렌더링합니다.', () => {
-    const utils = render(<DayOfTheWeek />)
+    const utils = render(<DayOfWeek />)
     const currentDay = dayjs().day()
 
     expect(utils.getByText(currentDay)).toBeInTheDocument()
@@ -22,16 +22,16 @@ describe('<DayOfTheWeek />', () => {
   ])(
     '주어진 날짜(%s)에 대해 올바른 요일(%i)을 렌더링합니다.',
     (date, expected) => {
-      const utils = render(<DayOfTheWeek date={date} />)
+      const utils = render(<DayOfWeek date={date} />)
       expect(utils.getByText(expected)).toBeInTheDocument()
     },
   )
 
   it('올바른 값으로 자식 함수를 렌더링합니다.', () => {
     const utils = render(
-      <DayOfTheWeek date="2024-09-03T11:22:33">
+      <DayOfWeek date="2024-09-03T11:22:33">
         {({ value }) => <span data-testid="day-value">{value}</span>}
-      </DayOfTheWeek>,
+      </DayOfWeek>,
     )
     const dayElement = utils.getByTestId('day-value')
 
@@ -39,7 +39,7 @@ describe('<DayOfTheWeek />', () => {
   })
 
   it('유효하지 않은 날짜일 경우 렌더링 하지 않습니다.', () => {
-    const utils = render(<DayOfTheWeek date="invalid-date" />)
+    const utils = render(<DayOfWeek date="invalid-date" />)
 
     expect(utils.container).toBeEmptyDOMElement()
   })

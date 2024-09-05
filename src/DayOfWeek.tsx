@@ -17,7 +17,7 @@ type DayValue = ToValue<Day>
 
 type Props = DateConfigType & FunctionComponentProps<DayValue>
 
-export function DayOfTheWeek({ date, children }: Partial<Props>) {
+export function DayOfWeek({ date, children }: Partial<Props>) {
   const [d] = useState(() => dayjs(date))
 
   if (!isValidDate(d)) {
