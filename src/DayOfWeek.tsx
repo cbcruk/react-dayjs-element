@@ -1,13 +1,12 @@
-import dayjs, { Dayjs } from 'dayjs'
+import { Dayjs } from 'dayjs'
 import {
   FunctionComponentProps,
   DateConfigType,
   ToValue,
   ReturnTo,
 } from './types'
-import { useState } from 'react'
-import { isValidDate } from './utils'
 import { Returns } from './Returns'
+import { useDayjs } from './useDayjs'
 
 type ReturnTypeDay = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
@@ -17,10 +16,13 @@ type DayValue = ToValue<Day>
 
 type Props = DateConfigType & FunctionComponentProps<DayValue>
 
+/**
+ * @link https://day.js.org/docs/en/get-set/day
+ */
 export function DayOfWeek({ date, children }: Partial<Props>) {
-  const [d] = useState(() => dayjs(date))
+  const { d, isValidDate } = useDayjs({ date })
 
-  if (!isValidDate(d)) {
+  if (!isValidDate) {
     return null
   }
 

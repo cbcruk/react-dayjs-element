@@ -1,26 +1,28 @@
-import dayjs, { Dayjs } from 'dayjs'
-import { FunctionComponentProps, DateConfigType, ToValue } from './types'
+import { Dayjs } from 'dayjs'
+import {
+  FunctionComponentProps,
+  DateConfigType,
+  ToValue,
+  ReturnNumber,
+} from './types'
+import { useDayjs } from './useDayjs'
+import { Returns } from './Returns'
 
-type Millisecond = ReturnType<typeof getMillisecond>
-type MillisecondValue = ToValue<Millisecond>
+type ReturnTypeMillisecond = ReturnNumber<Dayjs['millisecond']>
+
+type MillisecondValue = ToValue<ReturnTypeMillisecond>
 
 type Props = DateConfigType & FunctionComponentProps<MillisecondValue>
 
-function getMillisecond(date: Dayjs) {
-  return date.millisecond()
-}
-
+/**
+ * @link https://day.js.org/docs/en/get-set/millisecond
+ */
 export function Millisecond({ date, children }: Partial<Props>) {
-  const d = dayjs(date)
-  const value = getMillisecond(d)
+  const { d, isValidDate } = useDayjs({ date })
 
-  if (!d.isValid()) {
+  if (!isValidDate) {
     return null
   }
 
-  if (typeof children === 'function') {
-    return <>{children({ value })}</>
-  }
-
-  return <>{value}</>
+  return <Returns value={d.millisecond()}>{children}</Returns>
 }

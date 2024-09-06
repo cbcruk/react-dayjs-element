@@ -1,28 +1,28 @@
-import dayjs, { Dayjs } from 'dayjs'
+import { Dayjs } from 'dayjs'
 import {
   FunctionComponentProps,
   DateConfigType,
   ToValue,
   ReturnNumber,
 } from './types'
+import { Returns } from './Returns'
+import { useDayjs } from './useDayjs'
 
-type Year = ReturnNumber<Dayjs['year']>
-type YearValue = ToValue<Year>
+type ReturnTypeYear = ReturnNumber<Dayjs['year']>
+
+type YearValue = ToValue<ReturnTypeYear>
 
 type Props = DateConfigType & FunctionComponentProps<YearValue>
 
+/**
+ * @link https://day.js.org/docs/en/get-set/year
+ */
 export function Year({ date, children }: Partial<Props>) {
-  const d = dayjs(date)
+  const { d, isValidDate } = useDayjs({ date })
 
-  if (!d.isValid()) {
+  if (!isValidDate) {
     return null
   }
 
-  const value = d.year()
-
-  if (typeof children === 'function') {
-    return <>{children({ value })}</>
-  }
-
-  return <>{value}</>
+  return <Returns value={d.year()}>{children}</Returns>
 }

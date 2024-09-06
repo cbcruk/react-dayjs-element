@@ -1,2 +1,2 @@
 export { FormattedDate } from './FormattedDate'
-export { FromNow } from './FromNow'
+export { TimeFromNow as FromNow } from './TimeFromNow'

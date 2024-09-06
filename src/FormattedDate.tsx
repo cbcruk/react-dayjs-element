@@ -1,11 +1,12 @@
-import dayjs, { Dayjs } from 'dayjs'
+import { Dayjs } from 'dayjs'
 import {
   DateConfigType,
   FunctionComponentProps,
   Parameter,
   ToValue,
 } from './types'
-import { isFunctionComponent } from './utils'
+import { useDayjs } from './useDayjs'
+import { Returns } from './Returns'
 
 type Format = Dayjs['format']
 
@@ -17,18 +18,15 @@ type FormatParams = {
 
 type Props = DateConfigType & FormatParams & FunctionComponentProps<FormatValue>
 
+/**
+ * @link https://day.js.org/docs/en/display/format
+ */
 export function FormattedDate({ date, template, children }: Partial<Props>) {
-  const d = dayjs(date)
+  const { d, isValidDate } = useDayjs({ date })
 
-  if (!d.isValid()) {
+  if (!isValidDate) {
     return null
   }
 
-  const value = d.format(template)
-
-  if (isFunctionComponent(children)) {
-    return <>{children({ value })}</>
-  }
-
-  return <>{value}</>
+  return <Returns value={d.format(template)}>{children}</Returns>
 }

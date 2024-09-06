@@ -1,22 +1,22 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { FromNow } from './FromNow'
+import { TimeFromNow } from './TimeFromNow'
 
-describe('FromNow', () => {
+describe('<TimeFromNow />', () => {
   it('render', () => {
-    const utils = render(<FromNow date="2024-05-21" />)
+    const utils = render(<TimeFromNow date="2024-05-21" />)
 
     expect(utils.container).toBeDefined()
     expect(utils.container).toHaveTextContent('ago')
 
-    utils.rerender(<FromNow date="2024-05-21" withoutSuffix />)
+    utils.rerender(<TimeFromNow date="2024-05-21" withoutSuffix />)
 
     expect(utils.container).not.toHaveTextContent('ago')
 
     utils.rerender(
-      <FromNow date="2024-05-21" withoutSuffix>
+      <TimeFromNow date="2024-05-21" withoutSuffix>
         {({ value }) => `${value}`}
-      </FromNow>
+      </TimeFromNow>
     )
 
     expect(utils.container).not.toHaveTextContent('ago')

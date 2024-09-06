@@ -9,6 +9,10 @@ export type ReturnsProps<T> = {
 
 export function Returns<T>({ value, children }: ReturnsProps<T>) {
   if (isFunctionComponent(children)) {
+    if (!children) {
+      return null
+    }
+
     return <>{children({ value })}</>
   }
 

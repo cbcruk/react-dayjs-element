@@ -1,26 +1,28 @@
-import dayjs, { Dayjs } from 'dayjs'
-import { FunctionComponentProps, DateConfigType, ToValue } from './types'
+import { Dayjs } from 'dayjs'
+import {
+  FunctionComponentProps,
+  DateConfigType,
+  ToValue,
+  ReturnNumber,
+} from './types'
+import { Returns } from './Returns'
+import { useDayjs } from './useDayjs'
 
-type Second = ReturnType<typeof getSecond>
-type SecondValue = ToValue<Second>
+type ReturnTypeSecond = ReturnNumber<Dayjs['second']>
+
+type SecondValue = ToValue<ReturnTypeSecond>
 
 type Props = DateConfigType & FunctionComponentProps<SecondValue>
 
-function getSecond(date: Dayjs) {
-  return date.second()
-}
-
+/**
+ * @link https://day.js.org/docs/en/get-set/second
+ */
 export function Second({ date, children }: Partial<Props>) {
-  const d = dayjs(date)
-  const value = getSecond(d)
+  const { d, isValidDate } = useDayjs({ date })
 
-  if (!d.isValid()) {
+  if (!isValidDate) {
     return null
   }
 
-  if (typeof children === 'function') {
-    return <>{children({ value })}</>
-  }
-
-  return <>{value}</>
+  return <Returns value={d.second()}>{children}</Returns>
 }

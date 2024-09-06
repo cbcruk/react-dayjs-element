@@ -1,26 +1,28 @@
-import dayjs, { Dayjs } from 'dayjs'
-import { FunctionComponentProps, DateConfigType, ToValue } from './types'
+import { Dayjs } from 'dayjs'
+import {
+  FunctionComponentProps,
+  DateConfigType,
+  ToValue,
+  ReturnNumber,
+} from './types'
+import { Returns } from './Returns'
+import { useDayjs } from './useDayjs'
 
-type Month = ReturnType<typeof getMonth>
-type MonthValue = ToValue<Month>
+type ReturnTypeMonth = ReturnNumber<Dayjs['month']>
+
+type MonthValue = ToValue<ReturnTypeMonth>
 
 type Props = DateConfigType & FunctionComponentProps<MonthValue>
 
-function getMonth(date: Dayjs) {
-  return date.month()
-}
-
+/**
+ * @link https://day.js.org/docs/en/get-set/month
+ */
 export function Month({ date, children }: Partial<Props>) {
-  const d = dayjs(date)
-  const value = getMonth(d)
+  const { d, isValidDate } = useDayjs({ date })
 
-  if (!d.isValid()) {
+  if (!isValidDate) {
     return null
   }
 
-  if (typeof children === 'function') {
-    return <>{children({ value })}</>
-  }
-
-  return <>{value}</>
+  return <Returns value={d.month()}>{children}</Returns>
 }
