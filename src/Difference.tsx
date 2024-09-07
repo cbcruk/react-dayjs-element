@@ -11,11 +11,10 @@ type DiffValue = ToValue<DiffReturnType>
 
 type DiffParameters = Parameters<Diff>
 
-type DiffParams = {
-  date2: DiffParameters[0]
-  unit: DiffParameters[1]
-  float: DiffParameters[2]
-}
+type DiffParams =
+  Required<DiffParameters> extends [infer D, infer U, infer F]
+    ? { date2: D; unit: U; float: F }
+    : never
 
 type Props = DateConfigType & DiffParams & FunctionComponentProps<DiffValue>
 
