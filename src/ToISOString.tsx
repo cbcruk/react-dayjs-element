@@ -1,25 +1,21 @@
 import { Dayjs } from 'dayjs'
-import { DateConfigType, FunctionComponentProps, ToValue } from './types'
-import { useDayjs } from './useDayjs'
+import { Children, DefaultProps, ToValue } from './types'
 import { Returns } from './Returns'
+import { UseDayjs } from './UseDayjs'
 
-type ToISOString = Dayjs['toISOString']
+type ToISOStringReturn = ReturnType<Dayjs['toISOString']>
 
-type ToISOStringReturnType = ReturnType<ToISOString>
+type ToISOStringValue = ToValue<ToISOStringReturn>
 
-type ToISOStringValue = ToValue<ToISOStringReturnType>
-
-type Props = DateConfigType & FunctionComponentProps<ToISOStringValue>
+type Props = DefaultProps<Children<ToISOStringValue>>
 
 /**
  * @link https://day.js.org/docs/en/display/as-iso-string
  */
-export function ToISOString({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.toISOString()}>{children}</Returns>
+export function ToISOString({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.toISOString()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

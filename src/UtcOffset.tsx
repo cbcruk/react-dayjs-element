@@ -1,25 +1,21 @@
 import { Dayjs } from 'dayjs'
-import { DateConfigType, FunctionComponentProps, ToValue } from './types'
-import { useDayjs } from './useDayjs'
+import { Children, DefaultProps, ToValue } from './types'
 import { Returns } from './Returns'
+import { UseDayjs } from './UseDayjs'
 
-type UtcOffset = Dayjs['utcOffset']
+type UtcOffsetReturn = ReturnType<Dayjs['utcOffset']>
 
-type UtcOffsetReturnType = ReturnType<UtcOffset>
+type UtcOffsetValue = ToValue<UtcOffsetReturn>
 
-type UtcOffsetValue = ToValue<UtcOffsetReturnType>
-
-type Props = DateConfigType & FunctionComponentProps<UtcOffsetValue>
+type Props = DefaultProps<Children<UtcOffsetValue>>
 
 /**
  * @link https://day.js.org/docs/en/manipulate/utc-offset
  */
-export function UtcOffset({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.utcOffset()}>{children}</Returns>
+export function UtcOffset({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.utcOffset()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

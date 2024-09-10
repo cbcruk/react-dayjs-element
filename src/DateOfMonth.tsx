@@ -1,18 +1,13 @@
 import { Dayjs } from 'dayjs'
-import {
-  FunctionComponentProps,
-  DateConfigType,
-  ToValue,
-  ReturnNumber,
-} from './types'
+import { ToValue, ReturnNumber, Children, DefaultProps } from './types'
 import { Returns } from './Returns'
-import { useDayjs } from './useDayjs'
+import { UseDayjs } from './UseDayjs'
 
-type ReturnTypeDate = ReturnNumber<Dayjs['date']>
+type DateReturn = ReturnNumber<Dayjs['date']>
 
-type DateValue = ToValue<ReturnTypeDate>
+type DateValue = ToValue<DateReturn>
 
-type Props = DateConfigType & FunctionComponentProps<DateValue>
+type Props = DefaultProps<Children<DateValue>>
 
 /**
  * `DateOfMonth` 컴포넌트는 주어진 날짜의 일(day of the month)을 렌더링합니다.
@@ -30,12 +25,10 @@ type Props = DateConfigType & FunctionComponentProps<DateValue>
  *
  * @link https://day.js.org/docs/en/get-set/date
  */
-export function DateOfMonth({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.date()}>{children}</Returns>
+export function DateOfMonth({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.date()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

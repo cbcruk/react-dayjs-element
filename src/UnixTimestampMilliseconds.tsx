@@ -1,25 +1,21 @@
 import { Dayjs } from 'dayjs'
-import { DateConfigType, FunctionComponentProps, ToValue } from './types'
-import { useDayjs } from './useDayjs'
+import { Children, DefaultProps, ToValue } from './types'
 import { Returns } from './Returns'
+import { UseDayjs } from './UseDayjs'
 
-type ValueOf = Dayjs['valueOf']
+type ValueOfReturn = ReturnType<Dayjs['valueOf']>
 
-type ValueOfReturnType = ReturnType<ValueOf>
+type ValueOfValue = ToValue<ValueOfReturn>
 
-type ValueOfValue = ToValue<ValueOfReturnType>
-
-type Props = DateConfigType & FunctionComponentProps<ValueOfValue>
+type Props = DefaultProps<Children<ValueOfValue>>
 
 /**
  * @link https://day.js.org/docs/en/display/unix-timestamp-milliseconds
  */
-export function UnixTimestampMilliseconds({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.valueOf()}>{children}</Returns>
+export function UnixTimestampMilliseconds({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.valueOf()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

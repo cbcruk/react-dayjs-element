@@ -1,25 +1,21 @@
 import { Dayjs } from 'dayjs'
-import { DateConfigType, FunctionComponentProps, ToValue } from './types'
-import { useDayjs } from './useDayjs'
+import { Children, DefaultProps, ToValue } from './types'
 import { Returns } from './Returns'
+import { UseDayjs } from './UseDayjs'
 
-type ToDate = Dayjs['toDate']
+type ToDateReturn = ReturnType<Dayjs['toDate']>
 
-type ToDateReturnType = ReturnType<ToDate>
+type ToDateValue = ToValue<ToDateReturn>
 
-type ToDateValue = ToValue<ToDateReturnType>
-
-type Props = DateConfigType & FunctionComponentProps<ToDateValue>
+type Props = DefaultProps<Children<ToDateValue>>
 
 /**
  * @link https://day.js.org/docs/en/display/as-javascript-date
  */
-export function ToDate({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.toDate()}>{children}</Returns>
+export function ToDate({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.toDate()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

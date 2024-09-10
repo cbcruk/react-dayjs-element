@@ -1,37 +1,32 @@
 import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import {
-  DateConfigType,
-  FunctionComponentProps,
-  Parameter,
-  ToValue,
-} from './types'
-import { useDayjs } from './useDayjs'
+import { Children, DefaultProps, ToValue } from './types'
 import { Returns } from './Returns'
+import { UseDayjs } from './UseDayjs'
 
 dayjs.extend(relativeTime)
 
 type FromNow = Dayjs['fromNow']
 
-type FromNowValue = ToValue<ReturnType<FromNow>>
+type FromNowReturn = ReturnType<FromNow>
 
-type FromNowParams = {
-  withoutSuffix: Parameter<FromNow>
-}
+type FromNowValue = ToValue<FromNowReturn>
 
-type Props = DateConfigType &
-  FromNowParams &
-  FunctionComponentProps<FromNowValue>
+type FromNowParams = Required<Parameters<FromNow>> extends [infer W]
+  ? { withoutSuffix: W }
+  : never
+
+type Props = DefaultProps<FromNowParams & Children<FromNowValue>>
 
 /**
  * @link https://day.js.org/docs/en/display/from-now
  */
-export function TimeFromNow({ date, withoutSuffix, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.fromNow(withoutSuffix)}>{children}</Returns>
+export function TimeFromNow({ children, withoutSuffix, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => (
+        <Returns value={d.fromNow(withoutSuffix)}>{children}</Returns>
+      )}
+    </UseDayjs>
+  )
 }

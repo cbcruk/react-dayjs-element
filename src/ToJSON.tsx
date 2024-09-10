@@ -1,25 +1,21 @@
 import { Dayjs } from 'dayjs'
-import { DateConfigType, FunctionComponentProps, ToValue } from './types'
-import { useDayjs } from './useDayjs'
+import { Children, DefaultProps, ToValue } from './types'
 import { Returns } from './Returns'
+import { UseDayjs } from './UseDayjs'
 
-type ToJson = Dayjs['toJSON']
+type ToJsonReturn = ReturnType<Dayjs['toJSON']>
 
-type ToJsonReturnType = ReturnType<ToJson>
+type ToJsonValue = ToValue<ToJsonReturn>
 
-type ToJsonValue = ToValue<ToJsonReturnType>
-
-type Props = DateConfigType & FunctionComponentProps<ToJsonValue>
+type Props = DefaultProps<Children<ToJsonValue>>
 
 /**
  * @link https://day.js.org/docs/en/display/as-json
  */
-export function ToJSON({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.toJSON()}>{children}</Returns>
+export function ToJSON({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.toJSON()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

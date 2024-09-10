@@ -1,28 +1,21 @@
 import { Dayjs } from 'dayjs'
-import {
-  FunctionComponentProps,
-  DateConfigType,
-  ToValue,
-  ReturnTo,
-} from './types'
+import { ToValue, ReturnTo, Children, DefaultProps } from './types'
 import { Returns } from './Returns'
-import { useDayjs } from './useDayjs'
+import { UseDayjs } from './UseDayjs'
 
-type ReturnTypeLocale = ReturnTo<Dayjs['locale'], string>
+type LocaleReturn = ReturnTo<Dayjs['locale'], string>
 
-type LocaleValue = ToValue<ReturnTypeLocale>
+type LocaleValue = ToValue<LocaleReturn>
 
-type Props = DateConfigType & FunctionComponentProps<LocaleValue>
+type Props = DefaultProps<Children<LocaleValue>>
 
 /**
  * @link https://day.js.org/docs/en/durations/locale
  */
-export function Locale({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.locale()}>{children}</Returns>
+export function Locale({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.locale()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

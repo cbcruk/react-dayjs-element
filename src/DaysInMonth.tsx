@@ -1,28 +1,21 @@
 import { Dayjs } from 'dayjs'
-import {
-  FunctionComponentProps,
-  DateConfigType,
-  ToValue,
-  ReturnNumber,
-} from './types'
+import { ToValue, ReturnNumber, Children, DefaultProps } from './types'
 import { Returns } from './Returns'
-import { useDayjs } from './useDayjs'
+import { UseDayjs } from './UseDayjs'
 
-type ReturnTypeDaysInMonth = ReturnNumber<Dayjs['daysInMonth']>
+type DaysInMonthReturn = ReturnNumber<Dayjs['daysInMonth']>
 
-type DaysInMonthValue = ToValue<ReturnTypeDaysInMonth>
+type DaysInMonthValue = ToValue<DaysInMonthReturn>
 
-type Props = DateConfigType & FunctionComponentProps<DaysInMonthValue>
+type Props = DefaultProps<Children<DaysInMonthValue>>
 
 /**
  * @link https://day.js.org/docs/en/display/days-in-month
  */
-export function DaysInMonth({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.daysInMonth()}>{children}</Returns>
+export function DaysInMonth({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.daysInMonth()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

@@ -1,28 +1,21 @@
 import { Dayjs } from 'dayjs'
-import {
-  FunctionComponentProps,
-  DateConfigType,
-  ToValue,
-  ReturnNumber,
-} from './types'
+import { ToValue, ReturnNumber, Children, DefaultProps } from './types'
 import { Returns } from './Returns'
-import { useDayjs } from './useDayjs'
+import { UseDayjs } from './UseDayjs'
 
-type ReturnTypeHour = ReturnNumber<Dayjs['hour']>
+type HourReturn = ReturnNumber<Dayjs['hour']>
 
-type HourValue = ToValue<ReturnTypeHour>
+type HourValue = ToValue<HourReturn>
 
-type Props = DateConfigType & FunctionComponentProps<HourValue>
+type Props = DefaultProps<Children<HourValue>>
 
 /**
  * @link https://day.js.org/docs/en/get-set/hour
  */
-export function Hour({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.hour()}>{children}</Returns>
+export function Hour({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.hour()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }

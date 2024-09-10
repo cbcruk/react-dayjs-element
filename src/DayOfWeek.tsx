@@ -1,30 +1,21 @@
 import { Dayjs } from 'dayjs'
-import {
-  FunctionComponentProps,
-  DateConfigType,
-  ToValue,
-  ReturnTo,
-} from './types'
+import { ToValue, ReturnTo, Children, DefaultProps } from './types'
 import { Returns } from './Returns'
-import { useDayjs } from './useDayjs'
+import { UseDayjs } from './UseDayjs'
 
-type ReturnTypeDay = 0 | 1 | 2 | 3 | 4 | 5 | 6
+type DayReturn = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
-type Day = ReturnTo<Dayjs['day'], ReturnTypeDay>
+type DayValue = ToValue<ReturnTo<Dayjs['day'], DayReturn>>
 
-type DayValue = ToValue<Day>
-
-type Props = DateConfigType & FunctionComponentProps<DayValue>
+type Props = DefaultProps<Children<DayValue>>
 
 /**
  * @link https://day.js.org/docs/en/get-set/day
  */
-export function DayOfWeek({ date, children }: Partial<Props>) {
-  const { d, isValidDate } = useDayjs({ date })
-
-  if (!isValidDate) {
-    return null
-  }
-
-  return <Returns value={d.day()}>{children}</Returns>
+export function DayOfWeek({ children, ...props }: Props) {
+  return (
+    <UseDayjs {...props}>
+      {({ d }) => <Returns value={d.day()}>{children}</Returns>}
+    </UseDayjs>
+  )
 }
