@@ -20,3 +20,7 @@ export type ToValue<T> = {
 export type ReturnTo<T, R> = T extends () => R ? R : never
 
 export type ReturnNumber<T> = ReturnTo<T, number>
+
+export type DefaultProps<T> = Partial<DateConfigType> & T
+
+export type Children<T> = Partial<FunctionComponentProps<T>>
