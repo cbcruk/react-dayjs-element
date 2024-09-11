@@ -11,9 +11,10 @@ type IsBeforeValue = ToValue<IsBeforeReturn>
 
 type IsBeforeParameters = Parameters<IsBefore>
 
-type IsBeforeParams = Required<IsBeforeParameters> extends [infer D, infer U]
-  ? { date2: D; unit: U }
-  : never
+type IsBeforeParams =
+  Required<IsBeforeParameters> extends [infer D, infer U]
+    ? { date2: D; unit: U }
+    : never
 
 type Props = DefaultProps<IsBeforeParams & Children<IsBeforeValue>>
 

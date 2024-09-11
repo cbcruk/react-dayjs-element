@@ -9,9 +9,8 @@ type GetReturn = ReturnType<Get>
 
 type GetValue = ToValue<GetReturn>
 
-type GetParams = Required<Parameters<Get>> extends [infer U]
-  ? { unit: U }
-  : never
+type GetParams =
+  Required<Parameters<Get>> extends [infer U] ? { unit: U } : never
 
 type Props = DefaultProps<GetParams & Children<GetValue>>
 

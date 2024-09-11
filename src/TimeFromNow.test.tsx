@@ -16,7 +16,7 @@ describe('<TimeFromNow />', () => {
     utils.rerender(
       <TimeFromNow date="2024-05-21" withoutSuffix>
         {({ value }) => `${value}`}
-      </TimeFromNow>
+      </TimeFromNow>,
     )
 
     expect(utils.container).not.toHaveTextContent('ago')

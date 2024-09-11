@@ -11,9 +11,10 @@ type IsSameValue = ToValue<IsSameReturn>
 
 type IsSameParameters = Parameters<IsSame>
 
-type IsSameParams = Required<IsSameParameters> extends [infer D, infer U]
-  ? { date2: D; unit: U }
-  : never
+type IsSameParams =
+  Required<IsSameParameters> extends [infer D, infer U]
+    ? { date2: D; unit: U }
+    : never
 
 type Props = DefaultProps<IsSameParams & Children<IsSameValue>>
 

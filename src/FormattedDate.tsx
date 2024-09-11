@@ -9,9 +9,8 @@ type FormatReturn = ReturnType<Format>
 
 type FormatValue = ToValue<FormatReturn>
 
-type FormatParams = Required<Parameters<Format>> extends [infer T]
-  ? { template: T }
-  : never
+type FormatParams =
+  Required<Parameters<Format>> extends [infer T] ? { template: T } : never
 
 type Props = DefaultProps<FormatParams & Children<FormatValue>>
 

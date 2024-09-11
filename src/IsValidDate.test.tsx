@@ -7,7 +7,7 @@ describe('IsValid', () => {
     const utils = render(
       <IsValidDate date="2024-05-21">
         {({ value }) => <code>{JSON.stringify(value)}</code>}
-      </IsValidDate>
+      </IsValidDate>,
     )
 
     expect(utils.container).toBeDefined()

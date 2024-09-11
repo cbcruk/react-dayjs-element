@@ -21,7 +21,7 @@ describe('<Getter />', () => {
     const utils = render(
       <Getter date="2024-09-03T11:22:33" unit="hour">
         {({ value }) => <span data-testid="hour-value">{value}</span>}
-      </Getter>
+      </Getter>,
     )
     const hourElement = utils.getByTestId('hour-value')
 

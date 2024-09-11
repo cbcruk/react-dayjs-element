@@ -11,9 +11,10 @@ type IsAfterValue = ToValue<IsAfterReturn>
 
 type IsAfterParameters = Parameters<IsAfter>
 
-type IsAfterParams = Required<IsAfterParameters> extends [infer D, infer U]
-  ? { date2: D; unit: U }
-  : never
+type IsAfterParams =
+  Required<IsAfterParameters> extends [infer D, infer U]
+    ? { date2: D; unit: U }
+    : never
 
 type Props = DefaultProps<IsAfterParams & Children<IsAfterValue>>
 
