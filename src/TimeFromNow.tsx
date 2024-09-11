@@ -12,11 +12,10 @@ type FromNowReturn = ReturnType<FromNow>
 
 type FromNowValue = ToValue<FromNowReturn>
 
-type FromNowParams = Required<Parameters<FromNow>> extends [infer W]
-  ? { withoutSuffix: W }
-  : never
+type FromNowParams =
+  Required<Parameters<FromNow>> extends [infer W] ? { withoutSuffix: W } : never
 
-type Props = DefaultProps<FromNowParams & Children<FromNowValue>>
+type Props = DefaultProps<Partial<FromNowParams> & Children<FromNowValue>>
 
 /**
  * @link https://day.js.org/docs/en/display/from-now
