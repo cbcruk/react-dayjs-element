@@ -16,22 +16,48 @@ pnpm add @cbcruk/react-dayjs-element
 
 ## 사용법
 
+### 기본 사용법
+
 ```tsx
 import { DateOfMonth, TimeFromNow } from '@cbcruk/react-dayjs-element'
 
 function Example() {
   return (
-    <div>
-      <p>
-        오늘 날짜: <DateOfMonth />
-      </p>
-      <p>
-        특정 날짜로부터 경과한 시간: <TimeFromNow date="2024-01-01" />
-      </p>
-    </div>
+    <p>
+      오늘 날짜: <DateOfMonth />
+      <br />
+      특정 날짜로부터 경과한 시간: <TimeFromNow date="2024-01-01" />
+    </p>
   )
 }
 ```
+
+### DateProvider로 날짜 공유하기
+
+`DateProvider`를 사용하면 여러 컴포넌트가 같은 날짜 인스턴스를 공유할 수 있어 성능이 향상됩니다:
+
+```tsx
+import {
+  DateProvider,
+  Year,
+  Month,
+  DateOfMonth,
+} from '@cbcruk/react-dayjs-element'
+
+function Example() {
+  return (
+    <DateProvider date="2024-09-03">
+      <Year />년 <Month />월 <DateOfMonth />일
+    </DateProvider>
+  )
+}
+```
+
+**장점:**
+
+- 같은 날짜로 여러 컴포넌트를 사용할 때 dayjs 인스턴스를 재사용
+- Provider 내부에서도 개별 컴포넌트에 `date` prop을 전달하면 해당 값이 우선 적용됨
+- Provider는 중첩 가능
 
 ## 제공하는 컴포넌트
 
@@ -58,10 +84,53 @@ function Example() {
 
 ## 예제
 
+### 기본 예제
+
 ```tsx
 <DateOfMonth date="2024-09-03" />
 
 <DateOfMonth>
   {({ value }) => <span>{value}일</span>}
 </DateOfMonth>
+```
+
+### DateProvider 활용 예제
+
+```tsx
+import {
+  DateProvider,
+  Year,
+  Month,
+  DateOfMonth,
+  Hour,
+  Minute,
+} from '@cbcruk/react-dayjs-element'
+
+function BlogPost({ publishedAt }) {
+  return (
+    <DateProvider date={publishedAt}>
+      <article>
+        <time>
+          <Year />년 <Month />월 <DateOfMonth />일 <Hour />:<Minute />
+        </time>
+        <h1>블로그 제목</h1>
+        {/* ... */}
+      </article>
+    </DateProvider>
+  )
+}
+
+function EventList({ events }) {
+  return (
+    <ul>
+      {events.map((event) => (
+        <DateProvider key={event.id} date={event.startDate}>
+          <li>
+            {event.name} - <Month />월 <DateOfMonth />일
+          </li>
+        </DateProvider>
+      ))}
+    </ul>
+  )
+}
 ```
