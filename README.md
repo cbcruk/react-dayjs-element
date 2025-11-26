@@ -1,12 +1,15 @@
 # 📅 react-dayjs-element
 
-`react-dayjs-element`는 [Day.js](https://day.js.org/en/)를 기반으로 한 React 컴포넌트 모음입니다. 날짜와 시간 데이터를 유연하게 렌더링할 수 있도록 설계되었습니다.
+> React에서 날짜를 선언적으로 표시하는 컴포넌트 라이브러리
+
+`react-dayjs-element`는 [Day.js](https://day.js.org/en/)를 기반으로 한 React 컴포넌트 모음입니다. GitHub의 [`<relative-time>`](https://github.com/github/relative-time-element)에서 영감을 받아 만들었습니다.
 
 ## 특징
 
-- **Day.js 기반**: 가볍고 강력한 날짜 라이브러리인 Day.js를 활용합니다.
-- **타입스크립트 지원**: TypeScript로 작성되어 안정적인 개발이 가능합니다.
-- **유연한 사용성**: JSX 내부에서 쉽게 사용할 수 있도록 설계되었습니다.
+- **Day.js 기반**: 가볍고 강력한 날짜 라이브러리
+- **TypeScript 지원**: 완벽한 타입 안정성
+- **선언적 API**: JSX에서 자연스러운 사용성
+- **Context 지원**: 여러 컴포넌트 간 날짜 인스턴스 공유
 
 ## 설치
 
@@ -61,19 +64,26 @@ function Example() {
 
 ## 제공하는 컴포넌트
 
-다음과 같은 컴포넌트를 제공합니다:
+### 핵심 컴포넌트
 
-- `<DateOfMonth />` – 해당 날짜의 일을 렌더링합니다.
-- `<DayOfWeek />` – 해당 날짜의 요일을 렌더링합니다.
-- `<DaysInMonth />` – 해당 월의 총 일 수를 렌더링합니다.
-- `<Difference />` – 두 날짜 간 차이를 계산하여 렌더링합니다.
-- `<FormattedDate />` – 특정 형식(format)으로 날짜를 렌더링합니다.
-- `<Hour />` – 특정 날짜의 시(hour)를 렌더링합니다.
-- `<Minute />` – 특정 날짜의 분(minute)을 렌더링합니다.
-- `<Second />` – 특정 날짜의 초(second)를 렌더링합니다.
-- `<UnixTimestamp />` – Unix 타임스탬프를 렌더링합니다.
-- `<TimeFromNow />` – 현재 시점으로부터의 상대 시간을 표시합니다.
-- `<ToISOString />`, `<ToJSON />`, `<ToString />` – 날짜 데이터를 문자열로 변환하여 렌더링합니다.
+- **`<TimeFromNow />`** – 상대 시간 표시 (예: "3일 전")
+- **`<FormattedDate />`** – 포맷팅된 날짜 표시
+- **`<DateProvider />`** – Context로 날짜 공유
+
+### 선언적 조합용 컴포넌트
+
+- `<Year />` – 연도
+- `<Month />` – 월 (0-indexed: 0=1월, 11=12월)
+- `<DateOfMonth />` – 일
+- `<Hour />` – 시
+- `<Minute />` – 분
+- `<Second />` – 초
+
+### 추가 유틸리티
+
+- `<DayOfWeek />` – 요일 (0=일요일, 6=토요일)
+- `<DaysInMonth />` – 해당 월의 총 일 수
+- `<Difference />` – 두 날짜 간 차이
 
 ## Props
 
