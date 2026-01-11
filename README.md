@@ -14,7 +14,7 @@
 ## 설치
 
 ```sh
-pnpm add @cbcruk/react-dayjs-element
+pnpm add react-dayjs-element
 ```
 
 ## 사용법
@@ -22,7 +22,7 @@ pnpm add @cbcruk/react-dayjs-element
 ### 기본 사용법
 
 ```tsx
-import { DateOfMonth, TimeFromNow } from '@cbcruk/react-dayjs-element'
+import { DateOfMonth, TimeFromNow } from 'react-dayjs-element'
 
 function Example() {
   return (
@@ -45,7 +45,7 @@ import {
   Year,
   Month,
   DateOfMonth,
-} from '@cbcruk/react-dayjs-element'
+} from 'react-dayjs-element'
 
 function Example() {
   return (
@@ -114,7 +114,7 @@ import {
   DateOfMonth,
   Hour,
   Minute,
-} from '@cbcruk/react-dayjs-element'
+} from 'react-dayjs-element'
 
 function BlogPost({ publishedAt }) {
   return (

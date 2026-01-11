@@ -1,5 +1,5 @@
 {
-  "name": "@cbcruk/react-dayjs-element",
+  "name": "react-dayjs-element",
   "version": "0.1.0",
   "description": "Declarative date components for React, powered by Day.js",
   "keywords": [
