@@ -1,17 +1,33 @@
 {
-  "name": "react-dayjs-element",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@cbcruk/react-dayjs-element",
+  "version": "0.1.0",
+  "description": "Declarative date components for React, powered by Day.js",
+  "keywords": [
+    "react",
+    "dayjs",
+    "date",
+    "time",
+    "relative-time",
+    "components"
+  ],
+  "author": "cbcruk",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cbcruk/react-dayjs-element.git"
+  },
+  "homepage": "https://cbcruk.github.io/react-dayjs-element",
+  "bugs": {
+    "url": "https://github.com/cbcruk/react-dayjs-element/issues"
+  },
   "type": "module",
   "source": "./src/index.ts",
   "main": "./dist/react-dayjs-element.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/react-dayjs-element.js"
-      }
+      "types": "./dist/index.d.ts",
+      "default": "./dist/react-dayjs-element.js"
     }
   },
   "sideEffects": false,
@@ -30,11 +46,9 @@
     "check-exports": "attw --pack . --ignore-rules internal-resolution-error cjs-resolves-to-esm",
     "local-release": "pnpm run ci && changeset version && changeset publish"
   },
-  "dependencies": {
-    "dayjs": "^1.11.13",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "vitest": "^2.0.5"
+  "peerDependencies": {
+    "dayjs": "^1.11.0",
+    "react": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.2",
@@ -49,6 +63,7 @@
     "@typescript-eslint/parser": "^8.4.0",
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/ui": "latest",
+    "dayjs": "^1.11.13",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.35.2",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -56,10 +71,13 @@
     "globals": "^15.9.0",
     "jsdom": "^24.1.3",
     "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.4.0",
     "vite": "^5.4.3",
-    "vite-plugin-dts": "^4.2.1"
+    "vite-plugin-dts": "^4.2.1",
+    "vitest": "^2.0.5"
   },
   "packageManager": "pnpm@9.7.0"
 }
